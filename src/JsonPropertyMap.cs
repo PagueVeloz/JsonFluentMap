@@ -6,7 +6,7 @@ using Newtonsoft.Json.Serialization;
 namespace JsonFluentMap
 {
     /// <summary>
-    /// The class for mapping a prop
+    /// The class for mapping a property
     /// </summary>
     public class JsonPropertyMap
     {

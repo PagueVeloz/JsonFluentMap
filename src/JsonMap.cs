@@ -28,7 +28,7 @@ namespace JsonFluentMap
         }
 
         /// <summary>
-        /// Add a new prop to the model map
+        /// Add a new property to the model map
         /// </summary>
         /// <param name="expression">Property selector</param>
         /// <param name="name">Name of the property in json</param>
