@@ -5,6 +5,13 @@
         <LangVersion>latest</LangVersion>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Version>0.1.0</Version>
+        <Company>PagueVeloz</Company>
+        <Description>A Json fluent mapper.</Description>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <PackageTags>json; newtonsoft; fluent; runtime; mapper;</PackageTags>
+        <RepositoryType>git</RepositoryType>
+        <Authors>PagueVeloz</Authors>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="11.0.0"/>
