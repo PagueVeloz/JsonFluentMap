@@ -1,7 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <RootNamespace>JsonFluentMap</RootNamespace>
+        <AssemblyName>JsonFluentMap</AssemblyName>
+        <LangVersion>latest</LangVersion>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations" Version="11.0.0"/>
+        <PackageReference Include="Newtonsoft.Json" Version="10.0.3"/>
+    </ItemGroup>
 </Project>
