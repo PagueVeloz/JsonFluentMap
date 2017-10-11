@@ -37,7 +37,7 @@ Task("pack")
 Task("nuget-push")
     .Does(() =>
 {
-    Information("Publishing package to nuget.org")
+    Information("Publishing package to nuget.org");
     var settings = new DotNetCoreNuGetPushSettings
      {
          Source = nugetSource,
