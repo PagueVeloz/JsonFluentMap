@@ -2,11 +2,12 @@ language: csharp
 mono: none
 dotnet: none
 dist: trusty
+sudo: required
 cache:
   directories:
     - ./.dotnet
 script:
-- ./build.sh
+- chmod +x build.sh; ./build.sh
 env:
   global:
   - secure: rMgKusBHYS3Y1onH5UQ58IT52m+lxLKNMlmxBlvhEGQVAul5xK6Rr/v16wlrDor6RUGQQpeIMp/aeEAoG4AuwM9VtQjl3RbBlD+HaMfabjUYMXxZht28g3pqfB1zGrQtRktTku6WgV1T/E/wnLpNAG2VR2fA6eMoAqj8WrLhKbM0iocKMLMsJWe3V/eEhEjfDMazULvO0aO9Xa9TqL+KWzEVbA81axDCcYBt7fkTLsx9OiTiw/dwU+Bm07p2S6vq/ya3Vv61sytrUC3VAFvZz+2v76zeVwJBBUiiiyHzUrilxc9wWp9TWI8libii0mklPpx2hbWrd85p+t8SIJf+4YlHt+C1XUFpENaqMb1YIrOsI1m+YSfHwK6UjXDaL/t3iQpKau4l+/A0AWwtNCFt/ivnIYq4fZ7XZbPueedjQRPRMvrPOUND/0FkxtG1gGB0k84oI+WScUyccwHR0UBxekyJvoYu4/8l5ZqkQbetjDVBq1zcCL5L513LjZSD0pcEdYxjUrdutIF33DAA0bk84SSynmrncH20ARLF1HoiexJhGn5/g/dPCxjIgUWMIy9r4s0hXMm5z0tj4H4VGe4N0cIEBecpcHqPHZ2Z/9DOThwkjTc+fo8Gtj8gKUZb0Q6LL8/fYB3laswIiuZ2cUihxs9z17NW+Hi06Kzs0TOvyqE=
