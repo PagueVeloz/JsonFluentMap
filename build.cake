@@ -11,7 +11,10 @@ var version = EnvironmentVariable("PACKAGE_VERSION", string.Empty);
 
 //CI Environment vars
 var isOnTravis = EnvironmentVariable<bool>("TRAVIS", false);
+var prNumber = EnvironmentVariable("TRAVIS_PULL_REQUEST");
 var branch = EnvironmentVariable("TRAVIS_BRANCH");
+Information("Branch: {0}\nPR: {1}", branch, prNumber);
+int.TryParse(prNumber, out var isPR);
 
 Task("pack")
     .Does(() =>
@@ -41,7 +44,7 @@ Task("nuget-push")
     var settings = new DotNetCoreNuGetPushSettings
      {
          Source = nugetSource,
-         ApiKey = "test"
+         ApiKey = nugetKey
      };
 
      DotNetCoreNuGetPush($"./artifacts/JsonFluentMap.{version}.nupkg", settings);
