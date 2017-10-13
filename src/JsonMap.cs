@@ -8,18 +8,34 @@ using Newtonsoft.Json.Serialization;
 
 namespace JsonFluentMap
 {
-    public class JsonMap<T>
+    /// <summary>
+    /// Entry class for mapping models
+    /// </summary>
+    /// <typeparam name="T">Type of the model</typeparam>
+    public abstract class JsonMap<T>
     {
-        internal readonly Dictionary<Type, List<JsonPropertyMap>> Properties =
-            new Dictionary<Type, List<JsonPropertyMap>>();
+        private readonly Dictionary<Type, List<JsonPropertyMap>> _properties
+            = new Dictionary<Type, List<JsonPropertyMap>>();
 
         private readonly JsonMapContractResolver<T> _jsonMapContractResolver;
 
-        public JsonMap()
+        /// <summary>
+        /// The constructor
+        /// </summary>
+        protected JsonMap()
         {
             _jsonMapContractResolver = new JsonMapContractResolver<T>(this);
         }
 
+        /// <summary>
+        /// Add a new property to the model map
+        /// </summary>
+        /// <param name="expression">Property selector</param>
+        /// <param name="name">Name of the property in json</param>
+        /// <typeparam name="TProp">Type of the property</typeparam>
+        /// <returns>The property map</returns>
+        /// <exception cref="ArgumentNullException">Will be thrown in case that any parameters are null</exception>
+        /// <exception cref="ArgumentException">Will be thrown when the expression is not a <see cref="MemberExpression"/></exception>
         public JsonPropertyMap AddProperty<TProp>(
             [NotNull] Expression<Func<T, TProp>> expression
             , [NotNull] string name
@@ -41,48 +57,58 @@ namespace JsonFluentMap
             var prop = new JsonPropertyMap(jsonProp)
                 .WithName(name);
 
-            if (Properties.ContainsKey(declaringType))
-                Properties[declaringType].Add(prop);
+            if (_properties.ContainsKey(declaringType))
+                _properties[declaringType].Add(prop);
             else
-                Properties.Add(declaringType, new List<JsonPropertyMap> {prop});
+                _properties.Add(declaringType, new List<JsonPropertyMap> {prop});
 
             return prop;
         }
 
+        /// <summary>
+        /// Add a map for a nested type
+        /// </summary>
+        /// <typeparam name="TSub">Type of the nested type</typeparam>
+        /// <typeparam name="TMap">Type of the map for the nested type</typeparam>
+        /// <exception cref="InvalidOperationException">Will be thrown when trying to add a submap for one type that already has a map</exception>
         public void AddSubMap<TSub, TMap>()
             where TMap : JsonMap<TSub>
         {
             //TODO: Create a map cache
             var subMap = Activator.CreateInstance<TMap>();
 
-            foreach (var kv in subMap.Properties)
+            foreach (var kv in subMap._properties)
             {
                 if (kv.Key == typeof(T))
                     continue;
 
-                if (Properties.ContainsKey(kv.Key))
+                if (_properties.ContainsKey(kv.Key))
                 {
                     throw new InvalidOperationException();
                 }
 
-                Properties.Add(kv.Key, kv.Value);
+                _properties.Add(kv.Key, kv.Value);
             }
         }
 
         internal bool HasType(Type type)
         {
-            return Properties.ContainsKey(type);
+            return _properties.ContainsKey(type);
         }
 
         internal IList<JsonProperty> BuildProperties([NotNull] Type type)
         {
-            var props = Properties[type]
+            var props = _properties[type]
                 .Select(p => p.Build())
                 .ToList();
 
             return props;
         }
 
+        /// <summary>
+        /// Generates the contract resolver of this map
+        /// </summary>
+        /// <returns>The contract resolver for this map</returns>
         public IContractResolver BuildContractResolver()
         {
             return _jsonMapContractResolver;

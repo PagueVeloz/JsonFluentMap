@@ -2,6 +2,11 @@
 # Rider
 .idea
 
+# VS
+.vs/
+
+# Output files
 bin/
 obj/
-.vs/
+tools/
+artifacts/

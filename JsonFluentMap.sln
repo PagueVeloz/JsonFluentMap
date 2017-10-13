@@ -8,6 +8,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other Files", "Other Files", "{79EDD2E6-ACD4-4EE7-85DC-D458CE02501E}"
 ProjectSection(SolutionItems) = preProject
 	.gitignore = .gitignore
+	README.md = README.md
+	.travis.yml = .travis.yml
+	build.cake = build.cake
+	build.sh = build.sh
 EndProjectSection
 EndProject
 Global

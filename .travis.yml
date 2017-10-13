@@ -1,0 +1,17 @@
+language: csharp
+mono:
+  - latest
+dotnet: none
+dist: trusty
+sudo: required
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libunwind8 liblttng-ust0 libcurl3 libssl1.0.0 libuuid1 zlib1g libicu52
+before_script:
+  - chmod +x build.sh
+script:
+  - "./build.sh"
+env:
+  global:
+  - PACKAGE_VERSION="0.1.1-alpha"
+  - secure: nCcKbBb7Bd5J5sISQVHS1lBI9zrnjjl6W2gLlqw/dWfptlcEXU+9ahrw6n7DbO/6N85VyzSaHemI63VtffcUvlAa77BXzjc7nH9amwK8oEdmVUISs1dPm4kNVlFozIlES4pxLHnLrV4gbHpOb2tp280v3CsSCS9ZiiOUOWE05c3vcwW3nU5qDln20xxP1+VrXV8lXJjz/BgAc/lK/H5YDFK8b3xTHWO8b0P9m1TEDjDs30148sWm4EV+kI0OKFZ+ZBG3P2jkxisiYPBXl+UC9zFG68dKFwibaJhUkkw92DKq4Lk9mLxO50E8ehU7+8mwzTH/wEazyvcxLaTkWMBRJuAbz5grY+zNm5LpMwfisesH7jbrR03voftgIDUlXC9fM4zDckLU12jpXUR6aAJH4HoLuIZzWu6ceFg+LYonQfnlU6+uz27uj2fB3VgvpwqxN/8Wv0BZYGHv/2eRa86q4mUhqe+Npt5oqC98kqrGID7UhnHTLnaFW+fl8PjeG8Ppeoy52EBtcUa/nNCCYxWdbwtA7E1AzRDiP9UNOlty7x4WhYx7W3AfsKv2YzfwgHlbg6pv9sTNWtohvVL/LQD3MbF4F1EiMRRmA1m6O6JVXBMpl3hJOIV9EDOm+63voAMOkk97QswI8sjOs2+MjBDvydjemhfH1XwGtgDH8jNeI8c=
