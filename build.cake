@@ -13,7 +13,6 @@ var version = EnvironmentVariable("PACKAGE_VERSION", string.Empty);
 var isOnTravis = EnvironmentVariable<bool>("TRAVIS", false);
 var prNumber = EnvironmentVariable("TRAVIS_PULL_REQUEST");
 var branch = EnvironmentVariable("TRAVIS_BRANCH");
-Information("Branch: {0}\nPR: {1}", branch, prNumber);
 int.TryParse(prNumber, out var isPR);
 
 Task("pack")
@@ -57,7 +56,8 @@ Task("travis")
     if (isOnTravis)
     {
         Information("Build running on travis! branch: {0}", branch);
-        if(branch == "master")
+        Information("Pull Request {0}", $"#{prNumber}");
+        if(branch == "master" && !isPR)
         {
             RunTarget("nuget-push");
         }
