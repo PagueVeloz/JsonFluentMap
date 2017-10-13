@@ -13,7 +13,7 @@ var version = EnvironmentVariable("PACKAGE_VERSION", string.Empty);
 var isOnTravis = EnvironmentVariable<bool>("TRAVIS", false);
 var prNumber = EnvironmentVariable("TRAVIS_PULL_REQUEST");
 var branch = EnvironmentVariable("TRAVIS_BRANCH");
-int.TryParse(prNumber, out var isPR);
+var isPR = int.TryParse(prNumber, out var _);
 
 Task("pack")
     .Does(() =>
