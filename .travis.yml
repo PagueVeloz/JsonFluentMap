@@ -1,15 +1,16 @@
 language: csharp
 mono:
-- latest
-dotnet: 
-- 2.0.0
+  - latest
+dotnet: none
 dist: trusty
 sudo: required
-cache:
-  directories:
-  - "./.dotnet"
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libunwind8 liblttng-ust0 libcurl3 libssl1.0.0 libuuid1 zlib1g libicu52
+before_script:
+  - chmod +x build.sh
 script:
-- chmod +x build.sh; ./build.sh
+  - ./build.sh
 env:
   global:
   - PACKAGE_VERSION="0.1.0-alpha"
