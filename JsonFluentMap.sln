@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.0.0
 MinimumVisualStudioVersion = 10.0.0.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonFluentMap", "src\JsonFluentMap.csproj", "{0010B71E-5534-4EEF-9B49-F0453A5A7566}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonFluentMap", "src\JsonFluentMap\JsonFluentMap.csproj", "{0010B71E-5534-4EEF-9B49-F0453A5A7566}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other Files", "Other Files", "{79EDD2E6-ACD4-4EE7-85DC-D458CE02501E}"
 ProjectSection(SolutionItems) = preProject
@@ -13,6 +13,10 @@ ProjectSection(SolutionItems) = preProject
 	build.cake = build.cake
 	build.sh = build.sh
 EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9844BE51-2AD2-4712-A126-A33AAD0AA8C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{98F2BD89-BA03-43FD-A9F9-109DF4992F08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,5 +31,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0010B71E-5534-4EEF-9B49-F0453A5A7566} = {9844BE51-2AD2-4712-A126-A33AAD0AA8C5}
 	EndGlobalSection
 EndGlobal
