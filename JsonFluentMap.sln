@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9844BE51-2AD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{98F2BD89-BA03-43FD-A9F9-109DF4992F08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonFluentMap.Tests", "tests\JsonFluentMap.Tests\JsonFluentMap.Tests.csproj", "{0477F514-7B71-4AED-8DAE-01F354A264AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,11 +30,16 @@ Global
 		{0010B71E-5534-4EEF-9B49-F0453A5A7566}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0010B71E-5534-4EEF-9B49-F0453A5A7566}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0010B71E-5534-4EEF-9B49-F0453A5A7566}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0477F514-7B71-4AED-8DAE-01F354A264AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0477F514-7B71-4AED-8DAE-01F354A264AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0477F514-7B71-4AED-8DAE-01F354A264AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0477F514-7B71-4AED-8DAE-01F354A264AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0010B71E-5534-4EEF-9B49-F0453A5A7566} = {9844BE51-2AD2-4712-A126-A33AAD0AA8C5}
+		{0477F514-7B71-4AED-8DAE-01F354A264AA} = {98F2BD89-BA03-43FD-A9F9-109DF4992F08}
 	EndGlobalSection
 EndGlobal

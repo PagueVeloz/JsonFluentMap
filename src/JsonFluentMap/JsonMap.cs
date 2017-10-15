@@ -98,6 +98,9 @@ namespace JsonFluentMap
 
         internal IList<JsonProperty> BuildProperties([NotNull] Type type)
         {
+            if (!HasType(type))
+                return new List<JsonProperty>(0);
+
             var props = _properties[type]
                 .Select(p => p.Build())
                 .ToList();
