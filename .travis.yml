@@ -10,12 +10,12 @@ before_install:
 before_script:
   - chmod +x build.sh
 script:
-  - ./build.sh "pack"
+  - ./build.sh -t "pack"
 jobs:
   include:
     - stage: Publish to Nuget
       script:
-        - ./build.sh "travis"
+        - ./build.sh -t "travis"
       on:
         tags: true
       branches:
