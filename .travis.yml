@@ -10,7 +10,17 @@ before_install:
 before_script:
   - chmod +x build.sh
 script:
-  - "./build.sh"
+  - ./build.sh -Target "pack"
+jobs:
+  include:
+    - stage: Publish to Nuget
+      script:
+        - ./build.sh -Target "travis"
+      on:
+        tags: true
+      branches:
+        only:
+          - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 env:
   global:
   - PACKAGE_VERSION="0.1.1-alpha"
