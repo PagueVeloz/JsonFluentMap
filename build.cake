@@ -8,7 +8,7 @@ var config = Argument<string>("Configuration");
 var nugetKey = EnvironmentVariable("NUGET_KEY");
 var nugetSource = EnvironmentVariable("NUGET_SOURCE", "https://www.nuget.org/api/v2/package");
 
-var version = GitDescribe(".", "master", false, GitDescribeStrategy.Tags, 0)?.TrimStart('v', 'V') ?? "debug";
+var version = GitDescribe(".", false, GitDescribeStrategy.Tags, 0)?.TrimStart('v', 'V') ?? "debug";
 Information("Building {0}...", $"v{version}");
 
 //CI Environment vars
