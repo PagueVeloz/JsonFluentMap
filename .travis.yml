@@ -1,6 +1,6 @@
 language: csharp
 mono:
-  - latest
+  - 5.2.0
 dotnet: none
 dist: trusty
 sudo: required
@@ -10,8 +10,17 @@ before_install:
 before_script:
   - chmod +x build.sh
 script:
-  - "./build.sh"
+  - ./build.sh -t "pack"
+jobs:
+  include:
+    - stage: Publish to Nuget
+      script:
+        - ./build.sh -t "travis"
+      on:
+        tags: true
+      branches:
+        only:
+          - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 env:
   global:
-  - PACKAGE_VERSION="0.1.1-alpha"
   - secure: nCcKbBb7Bd5J5sISQVHS1lBI9zrnjjl6W2gLlqw/dWfptlcEXU+9ahrw6n7DbO/6N85VyzSaHemI63VtffcUvlAa77BXzjc7nH9amwK8oEdmVUISs1dPm4kNVlFozIlES4pxLHnLrV4gbHpOb2tp280v3CsSCS9ZiiOUOWE05c3vcwW3nU5qDln20xxP1+VrXV8lXJjz/BgAc/lK/H5YDFK8b3xTHWO8b0P9m1TEDjDs30148sWm4EV+kI0OKFZ+ZBG3P2jkxisiYPBXl+UC9zFG68dKFwibaJhUkkw92DKq4Lk9mLxO50E8ehU7+8mwzTH/wEazyvcxLaTkWMBRJuAbz5grY+zNm5LpMwfisesH7jbrR03voftgIDUlXC9fM4zDckLU12jpXUR6aAJH4HoLuIZzWu6ceFg+LYonQfnlU6+uz27uj2fB3VgvpwqxN/8Wv0BZYGHv/2eRa86q4mUhqe+Npt5oqC98kqrGID7UhnHTLnaFW+fl8PjeG8Ppeoy52EBtcUa/nNCCYxWdbwtA7E1AzRDiP9UNOlty7x4WhYx7W3AfsKv2YzfwgHlbg6pv9sTNWtohvVL/LQD3MbF4F1EiMRRmA1m6O6JVXBMpl3hJOIV9EDOm+63voAMOkk97QswI8sjOs2+MjBDvydjemhfH1XwGtgDH8jNeI8c=

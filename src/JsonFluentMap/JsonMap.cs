@@ -74,8 +74,25 @@ namespace JsonFluentMap
         public void AddSubMap<TSub, TMap>()
             where TMap : JsonMap<TSub>
         {
+            AddSubMap<TSub, TMap>(Activator.CreateInstance<TMap>);
+        }
+
+        /// <summary>
+        /// Add a map for a nested type
+        /// </summary>
+        /// <param name="submapCtor">Activator for the submap</param>
+        /// <typeparam name="TSub">Type of the nested type</typeparam>
+        /// <typeparam name="TMap">Type of the map for the nested type</typeparam>
+        /// <exception cref="InvalidOperationException">Will be thrown when trying to add a submap for one type that already has a map</exception>
+        /// <exception cref="ArgumentNullException">Will be thrown when <paramref name="submapCtor"/> is null</exception>
+        public void AddSubMap<TSub, TMap>([NotNull] Func<TMap> submapCtor)
+            where TMap : JsonMap<TSub>
+        {
+            if (submapCtor == null)
+                throw new ArgumentNullException(nameof(submapCtor));
+
             //TODO: Create a map cache
-            var subMap = Activator.CreateInstance<TMap>();
+            var subMap = submapCtor();
 
             foreach (var kv in subMap._properties)
             {

@@ -1,4 +1,5 @@
 #addin nuget:?package=Cake.Incubator&version=1.5.0
+#addin nuget:?package=Cake.Git&version=0.16.1
 
 var target = Argument<string>("Target");
 var config = Argument<string>("Configuration");
@@ -7,7 +8,8 @@ var config = Argument<string>("Configuration");
 var nugetKey = EnvironmentVariable("NUGET_KEY");
 var nugetSource = EnvironmentVariable("NUGET_SOURCE", "https://www.nuget.org/api/v2/package");
 
-var version = EnvironmentVariable("PACKAGE_VERSION", string.Empty);
+var version = GitDescribe(".", "master", false, GitDescribeStrategy.Tags, 0)?.TrimStart('v', 'V') ?? "debug";
+Information("Building {0}...", $"v{version}");
 
 //CI Environment vars
 var isOnTravis = EnvironmentVariable<bool>("TRAVIS", false);
@@ -57,14 +59,17 @@ Task("travis")
     {
         Information("Build running on travis! branch: {0}", branch);
         Information("Pull Request {0}", $"#{prNumber}");
-        if(branch == "master" && !isPR)
+
+        //if the branch equals to a version
+        //it means that the script is building a git tag (release)
+        if(branch == version && !isPR)
         {
             RunTarget("nuget-push");
         }
     }
     else
     {
-        Information("Build is NOT running on travis! branch: {0}", branch);
+        Information("Build is NOT running on travis!");
     }
 });
 
