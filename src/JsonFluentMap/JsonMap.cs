@@ -108,6 +108,42 @@ namespace JsonFluentMap
             }
         }
 
+        /// <summary>
+        /// Add a map for a parent type
+        /// </summary>
+        /// <typeparam name="TSup">Type of the parent type</typeparam>
+        /// <typeparam name="TMap">Type of the map for the super type</typeparam>
+        /// <exception cref="InvalidOperationException">Will be thrown when trying to add a submap for one type that already has a map</exception>
+        public void AddSuperMap<TSup, TMap>()
+            where TMap : JsonMap<TSup>
+        {
+            AddSuperMap<TSup, TMap>(Activator.CreateInstance<TMap>);
+        }
+
+        /// <summary>
+        /// Add a map for a parent type
+        /// </summary>
+        /// <param name="supmapCtor">Activator for the super map</param>
+        /// <typeparam name="TSup">Type of the parent type</typeparam>
+        /// <typeparam name="TMap">Type of the map for the super type</typeparam>
+        /// <exception cref="InvalidOperationException">Will be thrown when trying to add a submap for one type that already has a map</exception>
+        /// <exception cref="ArgumentNullException">Will be thrown when <paramref name="supmapCtor"/> is null</exception>
+        public void AddSuperMap<TSup, TMap>([NotNull] Func<TMap> supmapCtor)
+            where TMap : JsonMap<TSup>
+        {
+            if (supmapCtor == null)
+                throw new ArgumentNullException(nameof(supmapCtor));
+
+            //TODO: Create a map cache
+            var supMap = supmapCtor();
+
+            foreach (var kv in supMap._properties)
+            {
+                if (kv.Key.IsAssignableFrom(typeof(T)))
+                    _properties[typeof(T)].AddRange(kv.Value);
+            }
+        }
+
         internal bool HasType(Type type)
         {
             return _properties.ContainsKey(type);
