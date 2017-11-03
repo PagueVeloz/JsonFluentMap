@@ -31,6 +31,39 @@ namespace JsonFluentMap
         /// Add a new property to the model map
         /// </summary>
         /// <param name="expression">Property selector</param>
+        /// <typeparam name="TProp">Type of the property</typeparam>
+        /// <returns>The property map</returns>
+        /// <exception cref="ArgumentNullException">Will be thrown in case that any parameters are null</exception>
+        /// <exception cref="ArgumentException">Will be thrown when the expression is not a <see cref="MemberExpression"/></exception>
+        public JsonPropertyMap AddProperty<TProp>(
+            [NotNull] Expression<Func<T, TProp>> expression
+        )
+        {
+            if (expression == null)
+                throw new ArgumentNullException(nameof(expression));
+
+            var lambdaExpression = (LambdaExpression) expression;
+
+            if (!(lambdaExpression.Body is MemberExpression memberExpression))
+                throw new ArgumentException(nameof(lambdaExpression));
+
+            var propInfo = (PropertyInfo) memberExpression.Member;
+            var declaringType = propInfo.DeclaringType;
+            var jsonProp = _jsonMapContractResolver.CreateProperty(propInfo);
+            var prop = new JsonPropertyMap(jsonProp);
+
+            if (_properties.ContainsKey(declaringType))
+                _properties[declaringType].Add(prop);
+            else
+                _properties.Add(declaringType, new List<JsonPropertyMap> {prop});
+
+            return prop;
+        }
+
+        /// <summary>
+        /// Add a new property to the model map
+        /// </summary>
+        /// <param name="expression">Property selector</param>
         /// <param name="name">Name of the property in json</param>
         /// <typeparam name="TProp">Type of the property</typeparam>
         /// <returns>The property map</returns>
@@ -41,28 +74,8 @@ namespace JsonFluentMap
             , [NotNull] string name
         )
         {
-            if (expression == null)
-                throw new ArgumentNullException(nameof(expression));
-            if (name == null)
-                throw new ArgumentNullException(nameof(name));
-
-            var lambdaExpression = (LambdaExpression) expression;
-
-            if (!(lambdaExpression.Body is MemberExpression memberExpression))
-                throw new ArgumentException(nameof(lambdaExpression));
-
-            var propInfo = (PropertyInfo) memberExpression.Member;
-            var declaringType = propInfo.DeclaringType;
-            var jsonProp = _jsonMapContractResolver.CreateProperty(propInfo);
-            var prop = new JsonPropertyMap(jsonProp)
+            return AddProperty(expression)
                 .WithName(name);
-
-            if (_properties.ContainsKey(declaringType))
-                _properties[declaringType].Add(prop);
-            else
-                _properties.Add(declaringType, new List<JsonPropertyMap> {prop});
-
-            return prop;
         }
 
         /// <summary>
