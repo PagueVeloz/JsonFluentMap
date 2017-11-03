@@ -10,7 +10,7 @@ namespace JsonFluentMap.Tests
         {
             // ReSharper disable once AssignNullToNotNullAttribute
             var argEx = Assert.Throws<ArgumentNullException>(() => new JsonMapContractResolver<int>(null));
-            Assert.Equal(argEx.ParamName, "map");
+            Assert.Equal("map", argEx.ParamName);
         }
     }
 }

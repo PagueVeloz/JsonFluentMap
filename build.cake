@@ -17,6 +17,16 @@ var prNumber = EnvironmentVariable("TRAVIS_PULL_REQUEST");
 var branch = EnvironmentVariable("TRAVIS_BRANCH");
 var isPR = int.TryParse(prNumber, out var _);
 
+Task("tests")
+    .Does(() =>
+{
+    var testProjects = GetFiles("./tests/**/*Tests.csproj");
+    foreach(var file in testProjects)
+    {
+        DotNetCoreTest(file.FullPath);
+    }
+});
+
 Task("pack")
     .Does(() =>
 {
