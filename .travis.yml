@@ -15,7 +15,7 @@ jobs:
   include:
     - stage: Publish to Nuget
       script:
-        - ./build.sh -t "travis"
+        - ./build.sh -t "travis" -v Diagnostic
       on:
         tags: true
       branches:

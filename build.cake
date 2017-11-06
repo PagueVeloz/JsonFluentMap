@@ -45,8 +45,7 @@ Task("pack")
     Information("Packing version '{0}' with this settings: {1}", version, settings.Dump());
 
     DotNetCorePack("./src/JsonFluentMap.csproj", settings);
-})
-.OnError((ex) => throw ex.InnerException);
+});
 
 Task("nuget-push")
     .Does(() =>
