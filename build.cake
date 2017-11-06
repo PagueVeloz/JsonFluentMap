@@ -1,5 +1,8 @@
 #addin nuget:?package=Cake.Incubator&version=1.5.0
 #addin nuget:?package=Cake.Git&version=0.16.1
+#addin nuget:?package=Newtonsoft.Json
+
+using Newtonsoft.Json;
 
 var target = Argument<string>("Target");
 var config = Argument<string>("Configuration");
@@ -42,9 +45,14 @@ Task("pack")
         ToolTimeout = TimeSpan.FromMinutes(5)
     };
 
-    Information("Packing version '{0}' with this settings: {1}", version, settings.Dump());
+    Information(
+        "Packing version '{0}' with this settings: {1}{2}"
+        , version
+        , Environment.NewLine
+        , JsonConvert.SerializeObject(settings, Formatting.Indented)
+    );
 
-    DotNetCorePack("./src/JsonFluentMap.csproj", settings);
+    DotNetCorePack("./src/JsonFluentMap/JsonFluentMap.csproj", settings);
 });
 
 Task("nuget-push")
