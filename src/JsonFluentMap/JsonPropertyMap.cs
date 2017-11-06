@@ -48,6 +48,27 @@ namespace JsonFluentMap
             return this;
         }
 
+        /// <summary>
+        /// Changes the default value for this property
+        /// </summary>
+        public JsonPropertyMap DefaultValue(object defaultValue)
+        {
+            _jsonProp.DefaultValue = defaultValue;
+            return this;
+        }
+
+        /// <summary>
+        /// Changes the order for this property
+        /// </summary>
+        /// <remarks>
+        /// If one property is using order, the rest must use too
+        /// </remarks>
+        public JsonPropertyMap Order(int? order)
+        {
+            _jsonProp.Order = order;
+            return this;
+        }
+
         internal JsonProperty Build()
         {
             return _jsonProp;

@@ -35,12 +35,6 @@ namespace JsonFluentMap
             Type type
             , MemberSerialization memberSerialization
         )
-        {
-            var props = _map.HasType(type)
-                ? _map.BuildProperties(type)
-                : new List<JsonProperty>(0);
-
-            return props;
-        }
+            => _map.BuildProperties(type);
     }
 }
