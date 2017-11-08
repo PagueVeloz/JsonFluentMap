@@ -5,10 +5,13 @@ using Newtonsoft.Json.Serialization;
 
 namespace JsonFluentMap
 {
-    internal static class Extensions
+    /// <summary>
+    /// Extensions for the JsonFluentMap stuff
+    /// </summary>
+    public static class Extensions
     {
         /// <summary>
-        /// Generates a new <see cref="JsonSerializer"/> based on <paramref name="settings"/> or <see cref="BaseSettings"/>
+        /// Generates a new <see cref="JsonSerializer"/> based on <paramref name="settings"/> or <see cref="JsonMapSettings.BaseSettings"/>
         /// </summary>
         /// <param name="contractResolver">The contract resolver to be put in the <see cref="JsonSerializer"/></param>
         /// <param name="settings">Settings used to create the JsonSerializer</param>
